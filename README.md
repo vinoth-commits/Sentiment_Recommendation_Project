@@ -2,27 +2,54 @@
 
 This project implements an **end-to-end product recommendation system** that combines **user-item collaborative filtering** with **sentiment analysis** to provide personalized product suggestions. It uses user reviews to fine-tune recommendations and ensures that only products with highly positive feedback are recommended.
 
-## Features
+# Workflow Summary
 
-- **Data Cleaning & Preprocessing**
-  - Handles missing values in reviews, usernames, and other columns.
-  - Combines review titles and texts for complete review text.
-  - Performs text preprocessing: lowercasing, punctuation removal, stopword removal, and lemmatization.
+1. Libraries & Setup
+2. NLP: nltk (stopwords, lemmatizer)
+3. ML: sklearn, xgboost
+4. Web: Flask, pyngrok for public URL
 
-- **Sentiment Analysis**
-  - Maps review ratings to sentiment labels (Positive, Negative, Neutral).
-  - Trains multiple ML models (Logistic Regression, Random Forest, Naive Bayes, XGBoost) for sentiment prediction.
-  - Selects the best-performing model based on balanced accuracy and recall for negative reviews.
+## Data Loading
 
-- **Recommendation System**
-  - Builds a **user-item rating matrix** and computes **item-item similarity** using cosine similarity.
-  - Recommends top 20 products for a given user.
-  - Fine-tunes recommendations by analyzing positive review percentages, filtering **top 5 products** with highest positive sentiment.
+Loads dataset and inspects shape & types.
 
-- **Web Deployment**
-  - User-friendly interface to input username.
-  - Displays the top 5 recommended products.
-  - Fully deployable via **Flask** and **Heroku**.
+## Data Cleaning & Preprocessing
+
+1. Drops irrelevant columns.
+2. Handles missing values in usernames, titles, and manufacturer.
+3. Maps ratings to sentiments (Positive, Neutral, Negative).
+4. Encodes sentiments to numeric labels.
+
+## Text Preprocessing
+
+Lowercase, remove non-alphabetic, tokenize, remove stopwords, lemmatize.
+
+## Feature Extraction
+
+TF-IDF vectorization (1-2 grams, max 5000 features).
+
+## Model Training
+
+1. Logistic Regression, Random Forest, Naive Bayes, XGBoost.
+2. Prints classification reports.
+3. Logistic Regression chosen as the best model.
+
+## Recommendation System
+
+1. Item-based CF: Cosine similarity of product ratings.
+2. User-based CF: Cosine similarity of user ratings.
+3. Evaluates both systems to pick the best.
+
+## Sentiment Fine-Tuning
+
+1. Top 20 products from CF system.
+2. Select top 5 products based on positive sentiment score.
+
+## Flask Deployment
+
+1. Form to enter username.
+2. Displays top 5 recommended products.
+3. Hosted with ngrok for public URL.
 
 ## Folder Structure
 
