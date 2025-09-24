@@ -1,0 +1,9 @@
+Flask
+joblib
+numpy
+pandas
+nltk
+scikit-learn
+xgboost
+pyngrok
+

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment-Based Product Recommendation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h2, h3 { color: #333; }
+        input { padding: 8px; margin-right: 10px; width: 250px; }
+        button { padding: 8px 16px; }
+        ul { list-style-type: none; padding-left: 0; }
+        li { margin: 5px 0; }
+        .no-recommend { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Sentiment-Based Product Recommendation</h1>
+    <h2>Enter Username for Recommendations</h2>
+    <form method="POST">
+        <input type="text" name="username" placeholder="Enter username" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Recommendations will be rendered here by Flask -->
+    {% if recommendations %}
+        {% if recommendations[0] == "No recommendations available for this user." %}
+            <p class="no-recommend">{{ recommendations[0] }}</p>
+        {% else %}
+            <h3>Top 5 Product Recommendations for <b>{{ username }}</b>:</h3>
+            <ul>
+                {% for product in recommendations %}
+                    <li>{{ product }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
