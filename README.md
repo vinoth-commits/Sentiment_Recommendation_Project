@@ -1,66 +1,67 @@
 # Sentiment-Based Product Recommendation System
-GenAI based project for review system
 
-## Project Overview
-This project implements a sentiment-based product recommendation system that:
+This project implements an **end-to-end product recommendation system** that combines **user-item collaborative filtering** with **sentiment analysis** to provide personalized product suggestions. It uses user reviews to fine-tune recommendations and ensures that only products with highly positive feedback are recommended.
 
-1. Predicts the sentiment (Positive/Negative/Neutral) of user reviews using a Logistic Regression model.
-2. Builds an item-based collaborative filtering recommendation system.
-3. Recommends **top 20 products** to a user and filters **top 5 products** based on positive sentiment.
+## Features
 
----
+- **Data Cleaning & Preprocessing**
+  - Handles missing values in reviews, usernames, and other columns.
+  - Combines review titles and texts for complete review text.
+  - Performs text preprocessing: lowercasing, punctuation removal, stopword removal, and lemmatization.
+
+- **Sentiment Analysis**
+  - Maps review ratings to sentiment labels (Positive, Negative, Neutral).
+  - Trains multiple ML models (Logistic Regression, Random Forest, Naive Bayes, XGBoost) for sentiment prediction.
+  - Selects the best-performing model based on balanced accuracy and recall for negative reviews.
+
+- **Recommendation System**
+  - Builds a **user-item rating matrix** and computes **item-item similarity** using cosine similarity.
+  - Recommends top 20 products for a given user.
+  - Fine-tunes recommendations by analyzing positive review percentages, filtering **top 5 products** with highest positive sentiment.
+
+- **Web Deployment**
+  - User-friendly interface to input username.
+  - Displays the top 5 recommended products.
+  - Fully deployable via **Flask** and **Heroku**.
 
 ## Folder Structure
 
 Sentiment_Recommendation_Project/
-│
-├── app.py # Flask file connecting backend ML model and frontend
-├── model.py # Contains Logistic Regression model + recommendation system
-├── Jupyter notebooks/
-│ └── Sentiment_Based_Product_Recommendation_System.ipynb # End-to-end notebook
-├── models/ # Pickled models and preprocessed matrices
+├── app.py
+├── model.py
+├── models/
 │ ├── sentiment_model.joblib
 │ ├── tfidf_vectorizer.joblib
 │ ├── label_encoder.joblib
 │ ├── rating_matrix_filled.csv
 │ └── item_similarity_df.csv
-└── templates/
-└── index.html # HTML file for user interface
+├── templates/
+│ └── index.html
+└── Jupyter notebooks/
+└── Sentiment_Based_Product_Recommendation_System.ipynb
 
 
----
+## How to Run Locally
 
-## How to Run
+1. Clone the repository:
 
-### 1. Jupyter Notebook
-- Open `Jupyter notebooks/Sentiment_Based_Product_Recommendation_System.ipynb`.
-- Contains all steps:
-  - Data cleaning and preprocessing
-  - Feature extraction
-  - Model building and evaluation
-  - Building the recommendation system
-  - Flask deployment
-- The deployment link via ngrok is included in the notebook for easy access.
-
-### 2. Flask App Deployment
-- Ensure the following files exist in the project root:
-  - `app.py`
-  - `model.py`
-  - `templates/index.html`
-  - All files in the `models/` folder
-- Run locally:
 ```bash
+git clone <repository_url>
+cd Sentiment_Recommendation_Project
+
+2. Install dependencies:
+pip install -r requirements.txt
+
+3. Run the Flask app:
 python app.py
-Access the web app via the ngrok URL printed in the console.
 
-### 3. How It Works
+4. Open the URL provided by ngrok or Flask to access the application.
 
-Enter a valid username in the input box.
-Click Submit.
-The app returns the top 5 recommended products for that user based on ratings and sentiment of reviews.
+## Deployment
 
-### Assumptions
+The project can be deployed on Heroku.
+model.py contains the ML model and recommendation system for deployment.
+app.py connects the backend ML model with the frontend HTML (index.html).
 
-No new users or products will be introduced beyond the provided dataset.
-Models are trained only on the provided dataset.
-All preprocessing and feature extraction steps are consistent between training and deployment.
+## Author
+Vinoth Kumar
